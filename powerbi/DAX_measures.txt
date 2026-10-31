@@ -1,0 +1,14 @@
+Total Units Sold = SUM(sales[sales_quantity])
+Total Revenue = SUM(sales[sales_revenue])
+Current Stock Units = SUM(inventory_analysis[stock_quantity])
+Inventory Value = SUM(inventory_analysis[inventory_value])
+Products at Reorder Risk =
+CALCULATE(DISTINCTCOUNT(inventory_analysis[product_id]),
+    inventory_analysis[stock_status] IN {"Stockout","Reorder Risk"})
+Excess Stock Units =
+CALCULATE(SUM(inventory_analysis[stock_quantity]),
+    inventory_analysis[stock_status] = "Excess Stock")
+Forecast Demand 30D = SUM(demand_forecast_30d[forecast_demand])
+Recommended Replenishment Units = SUM(inventory_analysis[recommended_order_qty])
+Average Days of Inventory = AVERAGE(inventory_analysis[days_of_inventory])
+Average Selling Price = DIVIDE([Total Revenue],[Total Units Sold],0)
